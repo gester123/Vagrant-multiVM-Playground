@@ -1,0 +1,12 @@
+# Created by https://www.gitignore.io/api/vagrant
+
+### Vagrant ###
+.vagrant/
+
+### 00-multi-vm-base ###
+/00-multi-vm-base/.vagrant
+
+### 01-Docker VM###
+/01-Docker VM/.vagrant
+
+
