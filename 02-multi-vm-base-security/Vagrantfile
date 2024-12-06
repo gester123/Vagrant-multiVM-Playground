@@ -9,15 +9,14 @@ CPUS_MASTER_NODE    = 2
 CPUS_WORKER_NODE    = 1
 MEMORY_MASTER_NODE  = 2048
 MEMORY_WORKER_NODE  = 1024
-WORKER_NODES_COUNT  = 0
+WORKER_NODES_COUNT  = 2
 
 
 Vagrant.configure(2) do |config|
   # Boot strap sequence for all VM's 
   config.vm.provision "shell", path: "bootstrap.sh"
-  # Shared folder for all VM's
-  config.vm.synced_folder "./data", "/vagrant_data"
-    # Master Server
+
+  # Kubernetes Master Server
   config.vm.define "master" do |node|
   
     node.vm.box               = VAGRANT_BOX
@@ -26,10 +25,7 @@ Vagrant.configure(2) do |config|
     node.vm.hostname          = "master.example.com"
 
     node.vm.network "private_network", ip: "172.16.16.100"
-    # Public IP; uncomment when needed
-     node.vm.network "public_network"
-    
-
+  
     node.vm.provider :virtualbox do |v|
       v.name    = "master"
       v.memory  = MEMORY_MASTER_NODE
@@ -41,15 +37,13 @@ Vagrant.configure(2) do |config|
       v.nested  = true
       v.cpus    = CPUS_MASTER_NODE
     end
-    
-    # Boot strap sequence for Master for Docker and Python. 
-     node.vm.provision "shell", path: "bootstrap-Docker.sh"
-     node.vm.provision "shell", privileged: false, path: "Run-Python-Application.sh"
+    # Boot strap sequence for master 
+    # node.vm.provision "shell", path: "bootstrap_master.sh"
   
   end
 
 
-  # Worker Nodes
+  # Kubernetes Worker Nodes
   (1..WORKER_NODES_COUNT).each do |i|
 
     config.vm.define "worker#{i}" do |node|

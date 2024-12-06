@@ -7,7 +7,7 @@
 #
 
 
-echo "[Task 2] Update and install docker.io file"
+echo "[Task 1] Update and install docker.io file"
 # install docker here.
 #https://docs.docker.com/engine/install/ubuntu/
 
@@ -31,17 +31,19 @@ sudo apt-get install docker-ce docker-ce-cli ontainerd.io docker-buildx-plugin d
 echo "running docker from "
 sudo docker run hello-world
 
-# problem is the docker uses root. For use for development environment only
+# problem is the docker uses root. For use for development environment only. 
+# vagrant and the folder ownership is modified and it is not recommended for Production environment.
+
 echo "adding vagrant user to docker group"
 
 cat /etc/group | grep docker
-sudo groupadd docker
+# sudo groupadd docker
 sudo usermod -aG docker $USER
 newgrp docker
 sudo chmod 666 /var/run/docker.sock
 docker ps -a
 
-
+EOF
 
 
 
