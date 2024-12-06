@@ -9,7 +9,7 @@
 
 echo "[TASK A] Update /etc/hosts file"
 cat >>/etc/hosts<<EOF
-172.16.16.100   kmaster.example.com     kmaster
-172.16.16.101   kworker1.example.com    kworker1
-172.16.16.102   kworker2.example.com    kworker2
+172.16.16.100   kali.example.com     kali
+172.16.16.101   windows1.example.com    windows1
+172.16.16.102   windows2.example.com    windows2
 EOF
